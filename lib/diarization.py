@@ -38,10 +38,7 @@ class DiarizationPostProcessor:
         # create a new label generator
         self.labels = SpeakerLabelGenerator()
 
-        # process the diarization
-        clean_segments = self.clean_segments(diarization)
-        merged_segments = self.merge_segments(clean_segments)
-        emb_segments = self.segment_embeddings(merged_segments, embeddings)
+        emb_segments = self.segment_embeddings(diarization, embeddings)
 
         # create the speaker embeddings
         speaker_embeddings = self.create_speaker_embeddings(emb_segments)
