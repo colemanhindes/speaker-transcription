@@ -47,7 +47,7 @@ class Predictor(BasePredictor):
         })
         self.diarization_post = DiarizationPostProcessor()
 
-        with open(f"/data/whisper/medium.en.pt", "rb") as f:
+        with open(f"/data/whisper/large-v2.pt", "rb") as f:
             checkpoint = torch.load(f, map_location="cpu")
             dims = ModelDimensions(**checkpoint["dims"])
         self.whisper = Whisper(dims)
