@@ -74,24 +74,12 @@ class DiarizationPostProcessor:
         speaker_time = collections.defaultdict(float)
         total_time = 0.0
         for segment, _, speaker in diarization.itertracks(yield_label=True):
-            # filter out segments that are too short
-            if segment.duration < self.MIN_SEGMENT_DURATION:
-                continue
             speaker_time[speaker] += segment.duration
             total_time += segment.duration
 
-        # filter out speakers that have spoken too little
-        # (these are likely overlaps misclassified as separate speakers)
-        speakers = set([
-            speaker
-            for speaker, time in speaker_time.items()
-            if time > total_time * 0.01
-        ])
 
         segments = []
         for segment, _, speaker in diarization.itertracks(yield_label=True):
-            if (speaker not in speakers) or segment.duration < self.MIN_SEGMENT_DURATION:
-                continue
             segments.append({
                 "speaker": self.labels.get(speaker),
                 "start": segment.start,

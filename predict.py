@@ -125,7 +125,6 @@ class Predictor(BasePredictor):
         no_speech_threshold = 0.6
 
         args = {
-            "language": "en",  # this is an English-only model
             "patience": patience,
             "suppress_tokens": suppress_tokens,
             "initial_prompt": initial_prompt,
